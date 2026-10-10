@@ -4,12 +4,12 @@ A collection of LLM-powered intelligent intake systems demonstrating structured 
 
 ## Overview
 
-This capstone project contains two main components:
+This capstone project contains one main component:
 
 1. **Smart Incident Intake System** - A notebook-based incident ticket extraction system for IT service desks
-2. **Medical Appointment Booking Assistant** - A CLI-based conversational system for scheduling medical appointments
 
-Both systems leverage Claude LLM for intelligent data extraction with Pydantic validation and conversation memory.
+
+The system leverage Claude LLM for intelligent data extraction with Pydantic validation and conversation memory.
 
 ---
 
@@ -101,90 +101,6 @@ class IncidentRecord(BaseModel):
 - **Prompt Engineering**: Crafting system prompts with clear rules
 - **LangChain Integration**: Using LangChain memory and LLMChain
 
----
-
-## Component 2: Medical Appointment Booking System (mock_1/)
-
-### Purpose
-A production-like CLI application demonstrating a multi-turn conversational system for medical appointment scheduling with intelligent data extraction and conversation memory.
-
-### Architecture
-
-**Core Modules:**
-
-#### `main.py` - Application Entry Point
-```python
-def run_cli():
-    """Multi-turn CLI loop for appointment booking"""
-    # 1. Greet user
-    # 2. On user input: update memory, extract appointment info
-    # 3. If incomplete: ask clarifying questions
-    # 4. If complete: book appointment
-```
-
-#### `memory.py` - Conversation Memory
-- Stores user and assistant messages
-- Maintains context across turns
-- Retrieves conversation history for extraction
-
-#### `models.py` - Pydantic Models
-- Appointment data model with required fields:
-  - `patient_name`: Patient's full name
-  - `doctor_specialty`: Medical specialty (e.g., Dermatologist, Cardiologist)
-  - `appointment_reason`: Reason for appointment
-  - `preferred_date`: Appointment date
-  - `preferred_time`: Appointment time
-
-#### `llm_client.py` - LLM Integration
-- Wrapper around Claude API
-- Handles API calls and response parsing
-- Error handling and retry logic
-
-#### `extractor.py` - Data Extraction
-```python
-def extract_appointment_info(user_input, conversation_history, llm):
-    """
-    Extract appointment fields from user input
-    Returns: ExtractionResult with appointment data and missing fields
-    """
-```
-
-#### `appointment_tool.py` - Booking Logic
-```python
-def book_appointment(appointment_info):
-    """
-    Confirm and book the appointment
-    Returns: Booking status/confirmation message
-    """
-```
-
-#### `prompts.py` - Prompt Templates
-```python
-SYSTEM_PROMPT = """
-You are a medical appointment assistant.
-- Collect: patient_name, doctor_specialty, appointment_reason, 
-           preferred_date, preferred_time
-- Never provide medical advice or diagnosis
-- Strictly stay within appointment scheduling scope
-- Ask for missing details when needed
-"""
-
-FEW_SHOT_EXAMPLES = [
-    # Complete example
-    {
-        "user_input": "I'm Bob need a medical appointment on dermatology...",
-        "assistant_output": {...},
-        "missing_fields": []
-    },
-    # Incomplete example
-    {
-        "user_input": "I'm Bob and I need a medical appointment for my skin problem.",
-        "assistant_output": {...},
-        "missing_fields": ["preferred_date", "preferred_time"]
-    }
-]
-```
-
 ### Features
 
 1. **Multi-turn Conversation**
@@ -207,20 +123,6 @@ FEW_SHOT_EXAMPLES = [
    - Refuses medical advice requests
    - Validates all required fields before booking
 
-### Usage
-
-```bash
-# Run the appointment booking CLI
-cd mock_1/
-python main.py
-
-# Interact with the chatbot
-Welcome, How can I help you?
-You: I'm John and I want to book a dermatology appointment for acne
-Assistant: Thank you John. I have your information. What date would you prefer?
-You: Next Tuesday at 2 PM
-Assistant: Perfect! Let me book your appointment...
-```
 
 ---
 
@@ -253,7 +155,7 @@ Create a `.env` file in the project root:
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 ```
 
-Or in `mock_1/.env`:
+
 
 ```env
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
@@ -278,20 +180,9 @@ Execute cells sequentially to see:
 - System prompt engineering
 - Example extractions with validation
 
-### 2. Medical Appointment Booking
-
-```bash
-cd mock_1/
-python main.py
-```
 
 Then interact with the CLI:
-```
-Welcome, How can I help you?
-You: I need a doctor's appointment for my knee pain
-Assistant: I'd be happy to help schedule your appointment. What is your name?
-...
-```
+
 
 ---
 
@@ -347,15 +238,6 @@ Generated files are saved to `output/`:
 ---
 
 ## Testing & Examples
-
-### Test Cases (mock_1/test.txt)
-
-Example conversation flows:
-- Complete appointment with all details
-- Incomplete information requiring follow-up
-- Out-of-scope queries (medical advice requests)
-- Clarification rounds
-
 ---
 
 ## Architecture Diagram
@@ -465,6 +347,5 @@ Capstone Project Team - Python Trainings
 
 ---
 
-## Questions?
 
 Refer to the notebook cells and inline comments for detailed explanations of each concept.

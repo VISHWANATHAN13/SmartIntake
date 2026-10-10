@@ -1,4 +1,4 @@
-# Smart Intake Capstone Projects
+# Smart Intake 
 
 A collection of LLM-powered intelligent intake systems demonstrating structured data extraction, validation, and conversation memory management using Claude AI and LangChain.
 
